@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <title>Project Tracker</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <input type="text" placeholder="search...">
+            <h3>LOGO</h3>
+        </header>
+        <nav>Nav</nav>
+        <main class="main__content">
+            <div class="todo__list">
+                <h2>To Do´s</h2>
+                <form class="todo_new">
+                    <input class="todo__new--input" type="text" placeholder="Neues To Do..." required>
+                    <button class="btn btnAdd" type="submit" >Add</button>
+                </form>
+                <div class="todo__list--items">
+
+                </div>
+            </div>
+            <div class="todo__list">
+                <h2>In progress...</h2>
+                <div class="todo__list--items--progress">
+
+                </div>
+            </div>
+            <div class="todo__list">
+                <h2>Finished!</h2>
+                <div class="todo__list--container">
+                    <ul class="todo__list--items--finished">
+
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>
