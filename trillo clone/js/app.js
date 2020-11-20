@@ -1,108 +1,94 @@
-// Selectors
-const todoInput = document.querySelector(".todo__new--input"),
-    todoBtn = document.querySelector(".btnAdd"),
-    delBtn = document.querySelector(".btnDel"),
-    swapBtn = document.querySelector(".swap"),
-    todoList = document.querySelector(".todo__list--items"),
-    todoItem = document.querySelector(".todo__list--item"),
-    draggables = document.querySelectorAll(".draggable"),
-    dragContainers = document.querySelectorAll(".todo__list--items");
-let progress = [1,2,3],
-    finished = [4,5,6];
 
-// Eventlisteners
-todoBtn.addEventListener("click", addTodo);
-todoList.addEventListener("click", deleteTodo);
-window.onload = getTodos()
+// Event to add the Task
+document.getElementById('add-task').addEventListener('click', function() {
+    let taskValue = document.getElementById('task-value').value;
+    if (taskValue) addTask(taskValue);
+    document.getElementById('task-value').value = '';
+});
+
+//Create the Element
+const addTask = (taskValue) => {
+    let task = document.createElement('li');
+    task.classList.add('task');
+    task.classList.add('fill');
+    //set draggable status
+    task.setAttribute("draggable", "true");
+    task.addEventListener('dragstart', dragStart);
+    task.addEventListener('dragend', dragEnd);
+
+    let taskContent = document.createElement('div');
+    taskContent.classList.add('task-content');
+    taskContent.innerText = taskValue;
+    //add delete button
+    let trash = document.createElement('div');
+    trash.classList.add('trash');
+    trash.innerText = "X";
+    trash.addEventListener('click', removeTask);
+
+    task.appendChild(taskContent);
+    task.appendChild(trash);
+    //let task add to the start of the list
+    let tasks = document.getElementById('tasks-added');
+    tasks.insertBefore(task, tasks.childNodes[0]);
+}
+// Delete tasks
+const removeTask = (event) => {
+    let tasks = event.target.parentNode.parentNode;
+    let task = event.target.parentNode;
+    tasks.removeChild(task);
+}
 
 
+// DRAG & DROP
 
-//Functions
+let task
 
-//Drag n drop
+const dragStart = (event) => {
+    // console.log(event.target);
+    event.target.className += ' hold';
+    task = event.target;
+    setTimeout(() => (event.target.className = 'invisible'), 0);
+}
 
-function swapItem(e){
-    e.preventDefault();
-    const item = e.target
-    if(item.classList[0] === "swap"){
-        const todoItem = item.parentElement;
+const dragEnd = (event) => {    
+    // console.log(event.target);
+    event.target.className = 'task fill';
+}
 
+const dropzones = document.querySelectorAll('.dropzone');
+
+const dragEnter = (event) => {
+    // console.log("ENTER");
+    event.preventDefault();
+    if(event.target.className === "column dropzone") {
+        event.target.className += ' hovered';   
     }
 }
 
-////////
-function addTodo(e){
-    e.preventDefault();
-   if(todoInput.value === ""){
-       return
-   }else{
-        const todoHtml = `
-        <div class="todo__list--item draggable" draggable="true">
-            <li class="todo__item">${todoInput.value}</li>
-            <button class="btn btnDel"><i class="far fa-trash-alt"></i></button>
-        </div>
-        `;
-        saveTodo(todoInput.value)
-        todoList.innerHTML += todoHtml;
-        todoInput.value = '';
-   }
+const dragOver = (event) => {
+    // console.log("OVER");
+    event.preventDefault();
 }
 
-function deleteTodo(e){
-    const item = e.target;
-    
-    if(item.classList[1] === "btnDel"){
-        const todo = item.parentElement;
-        removeTodo(todo);
-        todo.remove();
-       
-    } 
-}
-
-function saveTodo(todo){
-    let todos
-    if(localStorage.getItem("todos") === null){
-        todos = [];
-    }else {
-        todos = JSON.parse(localStorage.getItem("todos"));
+const dragLeave = (event) => {
+    // console.log("LEAVE");
+    if(event.target.className === "column dropzone hovered") {
+        event.target.className = "column dropzone"
     }
-    todos.push(todo);
-    localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-function getTodos(){
-    let todos,
-    progress,
-    finished;
-    if(localStorage.getItem("todos") === null){
-        todos = [];
-        
-    }else {
-        todos = JSON.parse(localStorage.getItem("todos"));
-        progress = JSON.parse(localStorage.getItem("progress"));
-        finished = JSON.parse(localStorage.getItem("finished"));
+const dragDrop = (event) => {
+    // console.log("DROP");
+    if(event.target.className === "column dropzone hovered") {
+        event.target.className = "column dropzone"
     }
-    todos.forEach(todo => {
-        todoList.innerHTML += `
-        <div class="todo__list--item draggable" draggable="true">
-            <li class="todo__item">${todo}</li>
-            <button class="btn btnDel"><i class="far fa-trash-alt"></i></button>
-            <button class="swap">swap</button>
-        </div>
-        `;
-    });
-   
+    event.target.append(task);
 }
 
-function removeTodo(todo){
-    let todos
-    if(localStorage.getItem("todos") === null){
-        todos = [];
-    }else {
-        todos = JSON.parse(localStorage.getItem("todos"));
-    }
-    const todoIndex = todo.children[0].innerText;
-    todos.splice(todos.indexOf(todoIndex), 1);
-    localStorage.setItem("todos", JSON.stringify(todos))
-} 
-
+//Get all 'Dropzones' and add Listeners
+for(const dropzone of dropzones) {
+    dropzone.addEventListener('dragenter', dragEnter);
+    dropzone.addEventListener('dragover', dragOver);
+    dropzone.addEventListener('dragleave', dragLeave);
+    dropzone.addEventListener('drop', dragDrop);
+}

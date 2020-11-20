@@ -4,41 +4,213 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
 }
 
-.main__content {
+img {
+  width: 100%;
+  display: block;
+}
+
+header {
+  width: 100%;
+  height: 70px;
+}
+
+#navbar {
+  height: 70px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 90%;
+  margin: 0 auto 1em;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: .5em .5em 0;
+}
+
+#navbar #search {
+  height: 40px;
+  width: 250px;
+  border: none;
+  border-bottom: 1px solid lightgray;
+  margin: 0 1em;
+  margin-right: 3em;
+  font-size: 1.3rem;
+}
+
+.burger {
+  padding: 18px 24px;
+  border-right: 0.5px solid #E0E2E5;
+}
+
+.burger .line {
+  width: 24px;
+  height: 4px;
+  background-color: #E0E2E5;
+  margin: 6px 0;
+}
+
+#app {
+  width: 100%;
+  background: #eee;
+}
+
+#board {
+  width: 90%;
+  margin: 1em auto;
+  background: #ffffff;
+  border-bottom: 1px solid lightgray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 2em;
+}
+
+#board #infos {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.todo__list,
-.todo__list1 {
-  background: #eeeeee;
-  padding: 1em;
-  margin: 0 auto;
-  max-width: 250px;
-  width: 33%;
-}
-
-.todo__list--items {
-  width: 100%;
-  margin: 2em auto;
-  height: 500px;
-  background: #cccccc;
-}
-
-.todo__list--item {
-  background: #333333;
+#board .square {
+  height: 50px;
+  width: 50px;
+  border-radius: 4px;
+  background-color: #4786FF;
+  -webkit-box-shadow: 0px 4px 20px rgba(71, 134, 255, 0.5);
+          box-shadow: 0px 4px 20px rgba(71, 134, 255, 0.5);
   color: white;
+  font-weight: 700;
+  text-align: center;
+  margin-right: 1em;
 }
 
-.fa-trash-alt {
-  pointer-events: none;
+#board .infos-title {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
-.draggable.dragging {
-  opacity: .5;
+#board .infos-user {
+  color: #777;
+}
+
+#board #add-task-form {
+  position: absolute;
+  right: 5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#board #task-value {
+  padding-left: 1em;
+  margin-top: 1px;
+  height: 46px;
+  width: 240px;
+  border-radius: 0px;
+  margin-right: 8px;
+  line-height: 19px;
+  border: none;
+  border-bottom: 1px solid lightgray;
+}
+
+#board #task-value::-webkit-input-placeholder {
+  color: #E4E6E8;
+}
+
+#board #task-value:-ms-input-placeholder {
+  color: #E4E6E8;
+}
+
+#board #task-value::-ms-input-placeholder {
+  color: #E4E6E8;
+}
+
+#board #task-value::placeholder {
+  color: #E4E6E8;
+}
+
+#board #task-value:focus {
+  outline: 0;
+  -webkit-box-shadow: 0px 4px 20px rgba(71, 134, 255, 0.5);
+          box-shadow: 0px 4px 20px rgba(71, 134, 255, 0.5);
+}
+
+#board #add-task {
+  background: #4786FF;
+  border: none;
+  border-radius: 4px;
+  width: 50px;
+  height: 50px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 29px;
+  color: #FFFFFF;
+}
+
+#board #add-task:hover {
+  -webkit-box-shadow: 0px 4px 20px rgba(71, 134, 255, 0.5);
+          box-shadow: 0px 4px 20px rgba(71, 134, 255, 0.5);
+}
+
+#columns {
+  width: 90%;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#columns .column {
+  background: #ffffff;
+  min-height: 90px;
+  width: 350px;
+  margin: .5em;
+  padding: 1em;
+  border-radius: .2em;
+}
+
+.task {
+  list-style-type: none;
+  padding: 1em .5em;
+  position: relative;
+  border: 1px solid #EBEDF0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: .2em;
+  min-height: 80px;
+  width: 300px;
+}
+
+.task .trash {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  color: #54585A;
+}
+
+.task .trash:hover {
+  color: #c42d1c;
+}
+
+.hovered {
+  border-style: dashed;
 }
 /*# sourceMappingURL=styles.css.map */
